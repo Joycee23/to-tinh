@@ -1,0 +1,206 @@
+/* --- CSS chung cho cả hai trạng thái (trước và sau khi mở) --- */
+
+.love-letter-page-container, .initial-view-container {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: #fce4ec;
+    font-family: 'Arial', sans-serif;
+    font-size: 18px; /* Tăng cỡ chữ cơ bản cho toàn bộ component */
+}
+
+/* --- Dành cho màn hình ban đầu trước khi mở --- */
+.initial-view-content {
+  text-align: center;
+  color: #c2185b;
+  padding: 20px; /* Thêm padding để tránh nội dung quá sát cạnh */
+}
+
+.hearts span {
+  font-size: 36px; /* Kích thước trái tim trên đầu */
+  margin: 0 8px;
+  color: #e91e63;
+  animation: beat 1.5s infinite;
+}
+
+@keyframes beat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+.envelope-icon img {
+    width: 200px; /* Kích thước ảnh phong bì */
+    margin: 30px 0;
+}
+
+.knock-knock {
+  font-weight: bold;
+  font-size: 28px; /* Kích thước chữ "KNOCK KNOCK!" */
+  margin-top: 30px;
+}
+
+.youve-got-a-letter {
+    font-size: 20px; /* Kích thước chữ "YOU'VE GOT A LETTER..." */
+    margin-bottom: 40px;
+}
+
+.open-button {
+  background-color: #ff80ab;
+  color: white;
+  border: none;
+  padding: 20px 40px; /* Tăng padding nút */
+  border-radius: 30px; /* Tăng border-radius cho nút to hơn */
+  font-size: 22px; /* Kích thước chữ nút */
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Tăng nhẹ shadow */
+  transition: transform 0.2s ease-out;
+}
+
+.open-button:hover {
+  transform: scale(1.05);
+}
+
+
+/* --- Dành cho hiệu ứng mở thư --- */
+.envelope-wrapper {
+  position: relative;
+  width: 450px; /* Kích thước phong bì */
+  height: 300px; /* Kích thước phong bì */
+  cursor: pointer;
+  animation: zoomIn 0.5s ease-in-out;
+  z-index: 10;
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.5); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.envelope {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #f06292;
+    border-radius: 15px; /* Tăng border-radius phong bì */
+    box-shadow: 0 0 30px rgba(0,0,0,0.25); /* Tăng nhẹ shadow */
+}
+
+.envelope-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  border-top: 150px solid #ff80ab; /* Kích thước nắp trên */
+  border-left: 225px solid transparent; /* Nửa chiều rộng phong bì */
+  border-right: 225px solid transparent; /* Nửa chiều rộng phong bì */
+  transform-origin: top;
+  transition: transform 0.5s 0.5s ease-in-out;
+  z-index: 2;
+}
+
+.envelope-wrapper.open::before {
+  transform: rotateX(180deg);
+}
+
+.letter {
+  position: absolute;
+  background: white;
+  width: 430px; /* Chiều rộng lá thư (nhỏ hơn phong bì 20px mỗi bên) */
+  height: auto;
+  min-height: 280px; /* Chiều cao tối thiểu lá thư */
+  top: 10px;
+  left: 10px;
+  border-radius: 8px; /* Border-radius lá thư */
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  transform: translateY(280px); /* Dịch chuyển ban đầu lá thư */
+  transition: transform 0.5s ease-in-out, z-index 0s 0.5s;
+  z-index: 1;
+  padding: 30px; /* Tăng padding lá thư */
+  box-sizing: border-box;
+}
+
+.envelope-wrapper.open .letter {
+  transform: translateY(-10px);
+  z-index: 3;
+}
+
+.letter .text {
+  color: #333;
+  text-align: center;
+  line-height: 1.6; /* Tăng line-height cho dễ đọc */
+  font-size: 20px; /* Kích thước chữ trong lá thư */
+}
+.letter .text strong {
+    font-size: 24px; /* Kích thước chữ "Gửi em," */
+    display: block;
+    margin-bottom: 15px;
+}
+
+
+/* --- HIỆU ỨNG MƯA TRÁI TIM --- */
+
+.heart-rain-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 5;
+}
+
+.falling-heart {
+  position: absolute;
+  background: #e91e63;
+  width: 20px; /* Kích thước trái tim rơi */
+  height: 20px; /* Kích thước trái tim rơi */
+  transform: rotate(-45deg);
+  opacity: 0;
+  animation-name: fallAndFade;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.falling-heart::before,
+.falling-heart::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #e91e63;
+  border-radius: 50%;
+}
+
+.falling-heart::before {
+  top: -50%;
+  left: 0;
+}
+
+.falling-heart::after {
+  top: 0;
+  left: 50%;
+}
+
+@keyframes fallAndFade {
+  0% {
+    transform: translateY(-100px) rotate(-45deg) scale(0.8);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.2;
+  }
+  100% {
+    transform: translateY(100vh) rotate(-45deg) scale(0.5);
+    opacity: 0;
+  }
+}
