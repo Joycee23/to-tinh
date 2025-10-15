@@ -35,8 +35,8 @@ const FINAL_QUESTION = "Làm người yêu của tớ nhé? Cho tớ 1 cơ hội
 const ConfessionPage = () => {
   const [step, setStep] = useState(1);
   const [lineIndex, setLineIndex] = useState(0);
-  // Sử dụng state mới để quản lý 3 trạng thái: null, 'agreed', 'waiting'
-  const [responseState, setResponseState] = useState(null); 
+  // Quay lại sử dụng state boolean cho 2 trạng thái
+  const [agreed, setAgreed] = useState(false); 
   const [noButtonStyle, setNoButtonStyle] = useState({});
   const [yesButtonSize, setYesButtonSize] = useState(1);
   const videoRef = useRef(null);
@@ -102,8 +102,7 @@ const ConfessionPage = () => {
     }
   };
 
-  const handleYesClick = () => setResponseState('agreed');
-  const handleWaitingClick = () => setResponseState('waiting'); // Hàm mới
+  const handleYesClick = () => setAgreed(true);
 
   const toggleMute = () => {
     if (videoRef.current) {
@@ -114,22 +113,12 @@ const ConfessionPage = () => {
   };
 
   const renderContent = () => {
-    if (responseState === 'agreed') {
+    if (agreed) {
       return (
         <div className="container agreed-view">
           <Confetti width={window.innerWidth} height={window.innerHeight} />
           <h1 className="fade-in">YAY! Tớ cũng yêu cậu nhiều lắm! ❤️</h1>
           <img src="/em1.jpg" alt="Kỷ niệm đẹp" className="memory-image fade-in" />
-        </div>
-      );
-    }
-    
-    // Màn hình mới khi bấm "Chưa sẵn sàng"
-    if (responseState === 'waiting') {
-      return (
-        <div className="container waiting-view">
-          <h1 className="fade-in">Không sao đâu... 괜찮아</h1>
-          <h2 className="fade-in">Tớ sẽ đợi cậu đến khi nào cậu sẵn sàng.</h2>
         </div>
       );
     }
@@ -194,13 +183,6 @@ const ConfessionPage = () => {
                 onClick={handleYesClick}
               >
                 Đồng ý 🥰
-              </button>
-              {/* Nút mới được thêm vào */}
-              <button
-                className="waiting-button"
-                onClick={handleWaitingClick}
-              >
-                Tớ chưa sẵn sàng...
               </button>
               <button
                 ref={noButtonRef}
