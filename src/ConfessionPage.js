@@ -11,16 +11,12 @@ const OPENING_LINES = [
 // Dùng template literal (dấu `) để dễ xuống dòng cho thư
 const WISHES = [
   `Những lời này đáng lẽ 20/10 tớ mới nói với cậu cơ nhưng mà hôm bữa vì nghe theo con tim nên Tớ đã nói cho Cậu nghe rồi >.< , Tớ biết là Cậu hôm đấy sẽ rất là khó xử và bất ngờ đúng không nhỉ 😁 nhưng chắc hẳn nhiều nhất vẫn là chưa chấp nhận nổi đúng không.
-  
   Nhưng mà Tớ vẫn muốn trải lòng mình ra để Cậu có thể hiểu được tình cảm của Tớ dành cho Cậu.
-  
   Thúy nè, trong khoảng thời gian mình quen nhau tớ cảm thấy rất vui và hạnh phúc vì lâu lắm rồi tớ mới thấy mình yêu 1 ai nhiều đến như vậy, đặc biệt người đó lại là Cậu. Mỗi lần được gặp Cậu là Tớ vui lắm, tớ cảm nhận như mình đã tìm được 1 nửa tình yêu còn lại của mình rồi ý.
-  
   Tớ vẫn hay nói là: Tớ không biết cảm xúc của Cậu đối với tớ như thế nào, nhưng hiện tại Tớ rất Yêu Cậu. Gặp được Cậu như 1 giấc mơ đối với Tớ vậy hẹ hẹ.
-  
   Nhiều khi Tớ nghĩ mình may mắn lắm mới gặp được cậu luôn ý. Hơi dài dòng quá Tuấn ê, nên là Tớ Chỉ muốn nói rằng Tớ Yêu Cậu rất nhiều, Yêu mọi thứ về Cậu!!`,
   
-  "Tớ chúc cậu luôn là bông hoa xinh đẹp nhất, rạng rỡ nhất.Vì nay là tháng 10 nên nụ cười của cậu đẹp như Thủ Đô ngày giải phóng vậy, vì nụ cười của cậu làm bừng sáng cả thế giới của tớ.",
+  " Nay là ngày 20/10 Tớ chúc cậu luôn là bông hoa xinh đẹp nhất, rạng rỡ nhất.Vì nay là tháng 10 nên nụ cười của cậu đẹp như Thủ Đô ngày giải phóng vậy, vì nụ cười của cậu làm bừng sáng cả thế giới của tớ.",
 ];
 
 const GRATITUDE_LINES = [
