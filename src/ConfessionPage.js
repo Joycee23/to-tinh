@@ -4,16 +4,23 @@ import './ConfessionPage.css'; // Đảm bảo bạn có file CSS này
 
 // --- NỘI DUNG TÙY CHỈNH ---
 const OPENING_LINES = [
-  "Chào cậu...",
-  "Hôm nay là một ngày đặc biệt.",
-  "Và tớ có điều này muốn nói với cậu...",
+  "Chào Cậu, cô bé của tớ...",
+  "Hôm nay là một ngày đặc biệt Và Tớ có điều này muốn nói với Cậu...."
 ];
 
+// Dùng template literal (dấu `) để dễ xuống dòng cho thư
 const WISHES = [
-  "Nhân ngày 20/10,",
-  "Tớ chúc cậu luôn là bông hoa xinh đẹp nhất, rạng rỡ nhất.",
-  "Vì nay là tháng 10 nên nụ cười của cậu đẹp như Thủ Đô ngày giải phóng vậy.",
-  "Vì nụ cười của cậu làm bừng sáng cả thế giới của tớ.",
+  `Những lời này đáng lẽ 20/10 tớ mới nói với cậu cơ nhưng mà hôm bữa vì nghe theo con tim nên Tớ đã nói cho Cậu nghe rồi >.< , Tớ biết là Cậu hôm đấy sẽ rất là khó xử và bất ngờ đúng không nhỉ 😁 nhưng chắc hẳn nhiều nhất vẫn là chưa chấp nhận nổi đúng không.
+  
+  Nhưng mà Tớ vẫn muốn trải lòng mình ra để Cậu có thể hiểu được tình cảm của Tớ dành cho Cậu.
+  
+  Thúy nè, trong khoảng thời gian mình quen nhau tớ cảm thấy rất vui và hạnh phúc vì lâu lắm rồi tớ mới thấy mình yêu 1 ai nhiều đến như vậy, đặc biệt người đó lại là Cậu. Mỗi lần được gặp Cậu là Tớ vui lắm, tớ cảm nhận như mình đã tìm được 1 nửa tình yêu còn lại của mình rồi ý.
+  
+  Tớ vẫn hay nói là: Tớ không biết cảm xúc của Cậu đối với tớ như thế nào, nhưng hiện tại Tớ rất Yêu Cậu. Gặp được Cậu như 1 giấc mơ đối với Tớ vậy hẹ hẹ.
+  
+  Nhiều khi Tớ nghĩ mình may mắn lắm mới gặp được cậu luôn ý. Hơi dài dòng quá Tuấn ê, nên là Tớ Chỉ muốn nói rằng Tớ Yêu Cậu rất nhiều, Yêu mọi thứ về Cậu!!`,
+  
+  "Tớ chúc cậu luôn là bông hoa xinh đẹp nhất, rạng rỡ nhất.Vì nay là tháng 10 nên nụ cười của cậu đẹp như Thủ Đô ngày giải phóng vậy, vì nụ cười của cậu làm bừng sáng cả thế giới của tớ.",
 ];
 
 const GRATITUDE_LINES = [
@@ -22,50 +29,44 @@ const GRATITUDE_LINES = [
 ];
 
 const LEAD_IN_LINES = [
-    "Và chừng đấy thời gian không quá ngắn và cũng không quá dài,",
-    "Để cho tớ cảm thấy tớ rất cần cậu trong cuộc sống này.",
+    "Và chừng đấy thời gian không quá ngắn và cũng không quá dài,Để cho tớ cảm nhận được tình cảm mà Tớ dành cho Cậu và Tớ cũng cảm thấy tớ rất cần cậu trong cuộc sống này ",
 ];
 
 const CONFESSION_TEXT = "Điều quan trọng nhất mà tớ muốn nói là...";
-const FINAL_QUESTION = "Làm người yêu của tớ nhé?";
+const FINAL_QUESTION = "Làm người yêu của tớ nhé? Cho tớ 1 cơ hội để có thể yêu thương, che chở, quan tâm và chăm sóc cậu nhé ?";
 // --- KẾT THÚC ---
 
 const ConfessionPage = () => {
   const [step, setStep] = useState(1);
   const [lineIndex, setLineIndex] = useState(0);
-  const [agreed, setAgreed] = useState(false);
+  // Sử dụng state mới để quản lý 3 trạng thái: null, 'agreed', 'waiting'
+  const [responseState, setResponseState] = useState(null); 
   const [noButtonStyle, setNoButtonStyle] = useState({});
   const [yesButtonSize, setYesButtonSize] = useState(1);
   const videoRef = useRef(null);
   const [isMuted, setIsMuted] = useState(true);
   const buttonGroupRef = useRef(null);
   const noButtonRef = useRef(null);
-  
-  // Ref cho container chứa mưa trái tim
   const heartRainContainerRef = useRef(null);
 
-  // useEffect để tạo mưa trái tim một lần duy nhất khi component được tải
   useEffect(() => {
     if (heartRainContainerRef.current) {
-      const numHearts = 30; // Số lượng trái tim
+      const numHearts = 30;
       const container = heartRainContainerRef.current;
       container.innerHTML = ''; 
-
       for (let i = 0; i < numHearts; i++) {
         const heart = document.createElement('div');
         heart.className = 'falling-heart';
-        
         heart.style.left = `${Math.random() * 100}%`;
         const size = Math.random() * 10 + 10;
         heart.style.width = `${size}px`;
         heart.style.height = `${size}px`;
         heart.style.animationDelay = `${Math.random() * 5}s`;
         heart.style.animationDuration = `${Math.random() * 5 + 5}s`;
-
         container.appendChild(heart);
       }
     }
-  }, []); // Mảng rỗng đảm bảo hiệu ứng chỉ tạo 1 lần
+  }, []);
 
   const handleNext = () => {
     let currentStepLines;
@@ -76,13 +77,11 @@ const ConfessionPage = () => {
         case 5: currentStepLines = LEAD_IN_LINES; break;
         default: currentStepLines = [];
     }
-
     if (step === 4) {
         setStep(5);
         setLineIndex(0);
         return;
     }
-
     if (lineIndex < currentStepLines.length - 1) {
       setLineIndex(lineIndex + 1);
     } else {
@@ -107,7 +106,8 @@ const ConfessionPage = () => {
     }
   };
 
-  const handleYesClick = () => setAgreed(true);
+  const handleYesClick = () => setResponseState('agreed');
+  const handleWaitingClick = () => setResponseState('waiting'); // Hàm mới
 
   const toggleMute = () => {
     if (videoRef.current) {
@@ -118,7 +118,7 @@ const ConfessionPage = () => {
   };
 
   const renderContent = () => {
-    if (agreed) {
+    if (responseState === 'agreed') {
       return (
         <div className="container agreed-view">
           <Confetti width={window.innerWidth} height={window.innerHeight} />
@@ -127,8 +127,17 @@ const ConfessionPage = () => {
         </div>
       );
     }
+    
+    // Màn hình mới khi bấm "Chưa sẵn sàng"
+    if (responseState === 'waiting') {
+      return (
+        <div className="container waiting-view">
+          <h1 className="fade-in">Không sao đâu... 괜찮아</h1>
+          <h2 className="fade-in">Tớ sẽ đợi cậu đến khi nào cậu sẵn sàng.</h2>
+        </div>
+      );
+    }
 
-    // Các case giữ nguyên
     switch (step) {
       case 1:
         return (
@@ -149,7 +158,7 @@ const ConfessionPage = () => {
           <div className="card fade-in">
             <p className="story-text">{GRATITUDE_LINES[lineIndex]}</p>
             <button className="next-button" onClick={handleNext}>
-                {lineIndex === GRATITUDE_LINES.length - 1 ? "Và..." : "Tiếp tục..."}
+              {lineIndex === GRATITUDE_LINES.length - 1 ? "Và..." : "Tiếp tục..."}
             </button>
           </div>
         );
@@ -158,15 +167,7 @@ const ConfessionPage = () => {
           <div className="card fade-in">
             <p className="story-text">Và những khoảnh khắc tuyệt vời này...</p>
             <div className="video-container">
-              <video
-                ref={videoRef}
-                className="memory-video"
-                src="/kiniem1.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
-              >
+              <video ref={videoRef} className="memory-video" src="/kiniem1.mp4" autoPlay muted loop playsInline>
                 Trình duyệt của bạn không hỗ trợ video này.
               </video>
               <button onClick={toggleMute} className="mute-button">
@@ -198,6 +199,13 @@ const ConfessionPage = () => {
               >
                 Đồng ý 🥰
               </button>
+              {/* Nút mới được thêm vào */}
+              <button
+                className="waiting-button"
+                onClick={handleWaitingClick}
+              >
+                Tớ chưa sẵn sàng...
+              </button>
               <button
                 ref={noButtonRef}
                 className="no-button"
@@ -216,7 +224,6 @@ const ConfessionPage = () => {
   };
 
   return (
-    // Thêm container của mưa trái tim vào đây
     <div className="container">
       {renderContent()}
       <div ref={heartRainContainerRef} className="heart-rain-container"></div>
